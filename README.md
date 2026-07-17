@@ -31,8 +31,15 @@ with `danjo` / `ooyake` / `yosoku`.
     2024 analysis, 財務省政策研究所 2025 analysis): national aging rate 23.6%
     (past the 40-year statutory service life), renewal rate 0.64%/year,
     seismic-resistance rate ranging 24.8%–73.6% across prefectures.
-  - Building-permit processing time: no comparative source found — marked
-    `:data/status :unknown`, not fabricated.
+  - Building-permit (建築確認): 国土交通省「効率的かつ実効性ある確認検査制度等のあり方の検討」
+    (H23-25年度データ, older than the other two domains): statutory review
+    limits are 35 days (larger/complex buildings) / 7 days (small wood-frame
+    houses, ~70% of volume); national completion-inspection rate rose from
+    38% (H10) to 91% (H23); average annual confirmations per body range from
+    794 (prefectures) down to 156-158 (small cities/Tokyo wards) — a
+    structural workload-capacity proxy, not a direct processing-day
+    comparison. No source comparing actual processing DAYS across bodies
+    was found — that remains a follow-up.
 - **`src/fushin/infra_dynamics.cljc`** — a Little's-Law + Sterman
   stock-management system-dynamics core (backlog → completion-rate →
   resolved), the same textbook pattern as `cloud-itonami`'s factory model

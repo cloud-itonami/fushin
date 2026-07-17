@@ -75,5 +75,29 @@
   :note "99%の水道事業体が更新財源不足（財務省政策研究所2025分析、1,243事業体対象のEY Japan分析2024より）。市区町村単位の内訳は本ファイルにはない — 一次資料の都道府県別詳細表を未取り込み（follow-up）。"}
 
  :building-permit
- {:data/status :unknown
-  :note "建築確認処理日数の自治体間比較データは調査時点(2026-07-17)で発見できなかった。捏造せず follow-up として残す。ICBA(日本建築行政会議)等の統計を今後調査する。"}}
+ {:source {:agency "国土交通省"
+           :report "効率的かつ実効性ある確認検査制度等のあり方の検討（参考資料集）"
+           :published "2013 (平成25年頃、資料内データはH23-25年度)"
+           :as-of "H23年度〜H25年4月時点（本ファイルの他2ドメインより古い出典）"
+           :url "https://www.mlit.go.jp/common/001017279.pdf"
+           :retrieved "2026-07-17"}
+
+  ;; 建築基準法第6条の法定審査期間（自治体間比較ではなく制度上の上限日数）。
+  :statutory-review-days {:type-1-to-3-buildings 35
+                          :type-4-buildings 7
+                          :note "確認済証を交付できない合理的理由がある場合は35日の範囲内で延長可（type-1-to-3）。type-4建築物（小規模木造住宅等）が建築確認交付件数の約7割を占める（H24年度）。"}
+
+  ;; 完了検査率（確認済証交付件数に対する検査済証交付件数の比率）の全国推移。
+  ;; 自治体間比較ではなく全国トレンドのみ（G1）。
+  :completion-inspection-rate-national-trend {:h10 0.38 :h23 0.91}
+
+  ;; 特定行政庁の種類別・年間平均確認済証交付件数（H21-23年度平均、限定特定行政庁を除く）。
+  ;; 個別自治体名は含まない。行政庁の規模階層による処理量格差の構造的指標（G1）。
+  :annual-confirmations-by-authority-type
+  {:prefecture {:bodies 47 :avg-annual-confirmations 794}
+   :city-pop-over-250k {:bodies 88 :avg-annual-confirmations 243}
+   :city-pop-under-250k {:bodies 139 :avg-annual-confirmations 158}
+   :tokyo-23-wards {:bodies 23 :avg-annual-confirmations 156}
+   :all-types {:bodies 297 :avg-annual-confirmations 284}}
+
+  :note "個別自治体・行政庁ごとの実処理日数（着手から確認済証交付までの実際にかかった日数）を比較した一次統計は調査時点(2026-07-17)でなお発見できていない — 上記は法定上限日数・全国トレンド・行政庁種別の処理量格差という間接指標に留まる。捏造せず follow-up として残す。加えて出典が他2ドメイン(道路・水道)よりかなり古い(H23-25年度)ため、より新しいICBA/日本建築行政会議統計での更新も follow-up。"}}
