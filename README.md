@@ -36,10 +36,16 @@ with `danjo` / `ooyake` / `yosoku`.
     limits are 35 days (larger/complex buildings) / 7 days (small wood-frame
     houses, ~70% of volume); national completion-inspection rate rose from
     38% (H10) to 91% (H23); average annual confirmations per body range from
-    794 (prefectures) down to 156-158 (small cities/Tokyo wards) — a
-    structural workload-capacity proxy, not a direct processing-day
-    comparison. No source comparing actual processing DAYS across bodies
-    was found — that remains a follow-up.
+    794 (prefectures) down to 156-158 (small cities/Tokyo wards). Additionally,
+    Aichi Prefecture publishes its own prefectural-authority vs.
+    private-designated-body review-day comparison (FY2025 cumulative: 62 vs
+    35 days for structural-conformity-required cases) — the one real,
+    specific processing-DAY comparison found, at prefecture level (G1
+    permits this granularity). Nagoya City publishes an equivalent
+    municipality-level statistic, but it is deliberately NOT ingested here
+    (only listed as a known source) since comparing it against Aichi's
+    number would be an individual-municipality comparison, which G1 reserves
+    for a Council-ratified R1+ path.
 - **`src/fushin/infra_dynamics.cljc`** — a Little's-Law + Sterman
   stock-management system-dynamics core (backlog → completion-rate →
   resolved), the same textbook pattern as `cloud-itonami`'s factory model
