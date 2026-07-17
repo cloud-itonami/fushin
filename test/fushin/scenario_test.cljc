@@ -25,3 +25,25 @@
     (let [traj (sc/run-feedback sc/fast-archetype 500.0 5000)
           final-backlog (:backlog (last traj))]
       (is (< (Math/abs (- final-backlog (:backlog-target sc/fast-archetype))) 2.0)))))
+
+(deftest global-archetypes-use-real-world-bank-mean-repair-days
+  (testing "global archetype mean-repair-days match the cited World Bank figures exactly"
+    (is (= 27.5 (:mean-repair-days sc/global-best-practice-archetype)))
+    (is (= 154.0 (:mean-repair-days sc/global-average-archetype)))
+    (is (= 652.0 (:mean-repair-days sc/global-crisis-archetype)))
+    (is (< (:mean-repair-days sc/global-best-practice-archetype)
+           (:mean-repair-days sc/global-average-archetype)
+           (:mean-repair-days sc/global-crisis-archetype)))))
+
+(deftest global-crisis-settles-at-far-larger-backlog-than-best-practice
+  (testing "the ~24x mean-repair-days gap (Cambodia vs South Korea) produces a correspondingly larger equilibrium backlog"
+    (let [best-traj (sc/run-open-loop sc/global-best-practice-archetype 3000)
+          crisis-traj (sc/run-open-loop sc/global-crisis-archetype 3000)]
+      (is (< (:backlog (last best-traj)) (:backlog (last crisis-traj)))))))
+
+(deftest what-if-crisis-adopts-best-practice-reduces-backlog-over-horizon
+  (testing "a crisis-archetype backlog trends down after switching onto the best-practice archetype's policy"
+    (let [{:keys [before after]} (sc/what-if-crisis-adopts-best-practice 365 1000)
+          final-backlog (:backlog (last after))]
+      (is (pos? before))
+      (is (< final-backlog before)))))

@@ -55,6 +55,62 @@
         state0 (sd/->state {:backlog initial-backlog})]
     (sd/feedback-run state0 params days)))
 
+;; ---------------------------------------------------------------------- ;;
+;; Global building-permit archetypes (ADR-2608176500, scope broadening per
+;; owner direction: prioritize severe, already-documented OVERSEAS cases
+;; over further Japan-domestic refinement). Unlike fast-archetype/
+;; slow-archetype above, `:mean-repair-days` here is REAL — the World
+;; Bank's last-collected (2019, indicator discontinued 2021) "time to build
+;; a warehouse" figure for the named country. `:arrival-rate` /
+;; `:backlog-target` / `:adjustment-time` remain illustrative (no public
+;; arrival-rate time series exists for any of these), same discipline as
+;; the domestic archetypes: only the day-count is a real, cited number.
+;; ---------------------------------------------------------------------- ;;
+
+(def global-best-practice-archetype
+  "Real mean-repair-days: South Korea, 27.5 days (World Bank, 2019 — see
+  registry/benchmark-seed-global.edn :building-permit-global :fastest)."
+  {:label "global-best-practice (South Korea, real days; arrival/target illustrative)"
+   :arrival-rate 1.0
+   :mean-repair-days 27.5
+   :backlog-target 27.5
+   :adjustment-time 20.0})
+
+(def global-average-archetype
+  "Real mean-repair-days: World Bank global average, 154 days (2019)."
+  {:label "global-average (World Bank global average, real days; arrival/target illustrative)"
+   :arrival-rate 1.0
+   :mean-repair-days 154.0
+   :backlog-target 154.0
+   :adjustment-time 100.0})
+
+(def global-crisis-archetype
+  "Real mean-repair-days: Cambodia, 652 days (World Bank, 2019) — ~24x
+  South Korea's figure. The starkest, most policy-relevant gap found in
+  either the domestic or global registry so far."
+  {:label "global-crisis (Cambodia, real days; arrival/target illustrative)"
+   :arrival-rate 1.0
+   :mean-repair-days 652.0
+   :backlog-target 652.0
+   :adjustment-time 400.0})
+
+(defn what-if-crisis-adopts-best-practice
+  "Scenario: take the global-crisis-archetype's open-loop backlog after
+  `warmup-days`, then switch it onto global-best-practice-archetype's
+  backlog-target/adjustment-time, and run `horizon-days` further under
+  feedback. Same shape as what-if-adopt-fast-policy, applied to the global
+  (not Japan-domestic) archetype pair. Descriptive simulation output only
+  (G3) — a scenario shape, not a claim or recommendation addressed at any
+  real country."
+  [warmup-days horizon-days]
+  (let [warmed (run-open-loop global-crisis-archetype warmup-days)
+        backlog-at-switch (:backlog (last warmed))
+        policy (select-keys global-best-practice-archetype [:arrival-rate :backlog-target :adjustment-time])
+        params (sd/->feedback-params policy)
+        state0 (sd/->state {:backlog backlog-at-switch})]
+    {:before backlog-at-switch
+     :after (sd/feedback-run state0 params horizon-days)}))
+
 (defn what-if-adopt-fast-policy
   "Scenario: take `archetype`'s current open-loop backlog after `warmup-days`,
   then switch it onto `fast-archetype`'s backlog-target/adjustment-time (i.e.

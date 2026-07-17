@@ -2,22 +2,31 @@
 
 **DID**: `did:web:fushin.etzhayyim.com`
 **Namespace**: `com.etzhayyim.fushin.*`
-**ADR**: ADR-2607176000 (R0 scaffold, 2026-07-17)
-**Status**: R0 — benchmark seed + SD core + tests + offline heartbeat are real; named-municipality analysis is Council-gated
+**ADR**: ADR-2607176000 (R0 scaffold, 2026-07-17) + ADR-2608176500 (global scope broadening, 2026-07-17)
+**Status**: R0 — benchmark seed (Japan + global) + SD core + tests + offline heartbeat are real; named-municipality/city analysis is Council-gated
 
 ## Overview
 
-fushin answers, honestly and narrowly: *how does Japanese public
-infrastructure-repair response (road/bridge, water pipe — building-permit
-data not yet found) vary in aggregate, and what does a system-dynamics
-scenario of "a cohort that responds faster" look like?*
+fushin started as a Japan-domestic benchmark (ADR-2607176000) and was then
+broadened, per owner direction, to prioritize severe, already
+well-documented **overseas** infrastructure-response gaps over further
+Japan-domestic refinement (ADR-2608176500) — the international gaps found
+are far starker than anything in the Japan registry (e.g. a ~24x spread in
+building-permit processing days between countries).
 
-It does **not** answer "which specific municipality is slow" — that would
-be a named-party claim, and this workspace already gates named-party
+fushin answers, honestly and narrowly: *how does public infrastructure
+maintenance/repair response (road/bridge, water, building-permit) vary in
+aggregate — nationally, and across Japan/US states or prefectures — and
+what does a system-dynamics scenario of "a cohort that responds faster"
+look like?*
+
+It does **not** answer "which specific municipality/city is slow" — that
+would be a named-party claim, and this workspace already gates named-party
 publication about government bodies behind Council Lv6+ ratification + SBT
 vote (the same discipline the sibling actor `danjo` applies to its own
-oversight reports). See `CLAUDE.md` for the full constitutional boundary
-with `danjo` / `ooyake` / `yosoku`.
+oversight reports). Country- and state/prefecture-level citation IS within
+scope (see `CLAUDE.md` G1). See `CLAUDE.md` for the full constitutional
+boundary with `danjo` / `ooyake` / `yosoku`.
 
 ## What's here (real, working, tested)
 
@@ -50,17 +59,36 @@ with `danjo` / `ooyake` / `yosoku`.
   stock-management system-dynamics core (backlog → completion-rate →
   resolved), the same textbook pattern as `cloud-itonami`'s factory model
   (ADR-2607101558/2607122100), freshly implemented for this domain.
-- **`src/fushin/scenario.cljc`** — two **illustrative** archetypes,
-  `fast-cohort` / `slow-cohort`, whose relative parameter spread is
-  directionally calibrated from the real distribution above — NOT real
-  municipalities.
+- **`registry/benchmark-seed-global.edn`** — real, cited, country/state-level
+  international statistics (ADR-2608176500):
+  - **Building permits**: World Bank *Time required to build a warehouse*
+    (`IC.WRH.DURS`, 2019, indicator discontinued 2021-09-16) — global average
+    154 days; fastest South Korea 27.5 days; slowest Cambodia 652 days (~24x
+    South Korea).
+  - **Water (non-revenue water / NRW)**: World Bank/IBNET — global average
+    35% water loss, developing-country average 60%; worst documented: Iraq
+    60%, Jordan 50%, Lebanon 48%; Sub-Saharan Africa worst Nigeria 61.8% vs
+    best-in-region Niger 15.86%.
+  - **Roads (US)**: ASCE 2025 Infrastructure Report Card — national grade D+,
+    13.1% of major roadways in poor condition, $2.2T/$3.5T investment gap
+    (2024-2033); worst state Rhode Island (36.2% poor-condition), 9 states
+    with a worsening trend.
+- **`src/fushin/scenario.cljc`** — illustrative archetypes whose
+  `:mean-repair-days` is real, cited data (not invented) where available:
+  `fast-cohort`/`slow-cohort` (directionally calibrated from the Japan
+  bridge-repair distribution) and `global-best-practice`/`global-average`/
+  `global-crisis` (South Korea/World-Bank-average/Cambodia's real
+  building-permit day counts). None of these are real municipalities or
+  countries being ranked against each other by name in a claim — they are
+  scenario parameter sets, with the day-count itself being the one real,
+  cited number.
 - **`src/fushin/methods/autorun.cljc`** — an offline heartbeat that runs
-  both archetypes and appends a content-addressed, hash-chained record to a
-  local, gitignored log. No external I/O, no publication.
+  both Japan-domestic archetypes and appends a content-addressed, hash-chained
+  record to a local, gitignored log. No external I/O, no publication.
 
 ```bash
 cd orgs/etzhayyim/com-etzhayyim-fushin
-clojure -M:test            # 10 tests, 16 assertions, green
+clojure -M:test            # 13 tests, 23 assertions, green
 clojure -M:autorun 365     # run one offline heartbeat cycle
 ```
 
@@ -92,3 +120,4 @@ ratification (see `manifest.edn`, `CLAUDE.md`).
 - `/CLAUDE.md` — full constitutional discipline + sibling-actor boundary
 - `/manifest.edn` / `/manifest.jsonld` — actor manifest + DID manifest
 - `/90-docs/adr/2607176000-fushin-infra-repair-benchmark-system-dynamics-actor-r0.edn` (superproject)
+- `/90-docs/adr/2608176500-fushin-global-priority-scope-broadening.edn` (superproject)

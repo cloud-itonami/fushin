@@ -1,0 +1,50 @@
+;; fushin 普請 — benchmark-seed-global.edn (ADR-2608176500)
+;;
+;; Scope broadening per owner direction: prioritize severe, already
+;; well-documented OVERSEAS infrastructure-response gaps over further
+;; domestic (Japan) refinement. SOURCE discipline unchanged (G2/G6):
+;; every number cites agency/report/as-of/URL. Granularity discipline
+;; unchanged (G1): country- and state/province-level only — no individual
+;; city or municipality is named or compared here.
+
+{:building-permit-global
+ {:source {:agency "World Bank (Doing Business — DISCONTINUED 2021-09-16)"
+           :indicator "IC.WRH.DURS — Time required to build a warehouse (days)"
+           :as-of "2019 (last collection before discontinuation)"
+           :url "https://data.worldbank.org/indicator/IC.WRH.DURS"
+           :retrieved "2026-07-17"}
+  :global-average-days 154.0
+  :fastest {:country "South Korea" :days 27.5}
+  :slowest {:country "Cambodia" :days 652.0}
+  :selected-countries {:united-states 80.6 :ghana 170.0}
+  :note "Discontinued indicator — no updated global cross-country figure exists post-2019. The Cambodia/Korea gap (~24x) is far starker than anything found in the Japan-domestic registry (registry/benchmark-seed.edn), and is well-established, widely-cited World Bank data — not a novel ranking claim."}
+
+ :water-non-revenue-water-global
+ {:source {:agency "World Bank / IBNET"
+           :report "Non-Revenue Water (NRW) — global/regional estimates"
+           :as-of "various (per-country figures compiled from World Bank / public agency reporting, years vary by country)"
+           :url "https://blogs.worldbank.org/en/water/what-non-revenue-water-how-can-we-reduce-it-better-water-service"
+           :retrieved "2026-07-17"}
+  :global-average-share 0.35
+  :developing-countries-average-share 0.60
+  :performance-targets {:developing-country-utility 0.23 :developed-country-utility 0.16}
+  :worst-documented-countries {:iraq 0.60 :jordan 0.50 :lebanon 0.48 :palestine 0.40 :egypt 0.34}
+  :sub-saharan-africa {:regional-average 0.3972 :worst {:country "Nigeria" :share 0.618} :best-in-region {:country "Niger" :share 0.1586}}
+  :note "NRW is a chronic loss-rate, not a discrete repair backlog with a clear arrival/completion split like Japan's bridge data — mapping it onto fushin.infra-dynamics's backlog model needs more design work than a direct plug-in (follow-up; not yet wired into fushin.scenario)."}
+
+ :roads-us
+ {:source {:agency "American Society of Civil Engineers (ASCE)"
+           :report "2025 Infrastructure Report Card — Roads"
+           :as-of "2025"
+           :url "https://infrastructurereportcard.org/cat-item/roads-infrastructure/"
+           :retrieved "2026-07-17"}
+  :national-grade "D+"
+  :poor-condition-share-major-roadways 0.131
+  :investment-gap-usd-2024-2033 {:roadway-system 2.2e12 :total-surface-transportation 3.5e12}
+  ;; State-level (analogous to the Japan registry's prefecture-level Aichi
+  ;; precedent — a state's own reported condition share, not a
+  ;; city-vs-city comparison).
+  :worst-state {:state "Rhode Island" :poor-condition-share 0.362}
+  :state-shortfall-10yr-usd 8.63e10
+  :states-with-worsening-trend ["Colorado" "Kentucky" "Massachusetts" "Michigan" "New Jersey" "New York" "Oregon" "Rhode Island" "Vermont"]
+  :note "US-specific rather than a global cross-country comparison (unlike the other two domains here) — ASCE only covers the US. A genuinely global road-quality cross-country dataset (e.g. WEF Global Competitiveness Report's road-quality survey) was not yet ingested (follow-up)."}}

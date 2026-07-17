@@ -8,7 +8,9 @@
   assignment promptly vs. lagged. Here: a benchmark + scenario tool, never
   an enforcement mechanism.)
 - **DID**: `did:web:fushin.etzhayyim.com`
-- **ADR**: ADR-2607176000 (R0 scaffold, 2026-07-17)
+- **ADR**: ADR-2607176000 (R0 scaffold, 2026-07-17) + ADR-2608176500
+  (global scope broadening, 2026-07-17 — owner: prioritize severe overseas
+  cases over further Japan-domestic refinement)
 - **Parent/sibling ADRs**: ADR-2605301600 (danjo, discipline borrowed) ·
   ADR-2606021600 (ooyake, boundary) · ADR-2607072630 (yosoku, boundary) ·
   ADR-2605250800 (gov-municipality, template shape) · ADR-2607101558 /
@@ -41,9 +43,13 @@ reasoning.
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE at R0)
 
-1. **Aggregate-only ingestion (G1)** — `registry/benchmark-seed.edn` never
-   names an individual municipality. Only national/prefecture-level
-   aggregate statistics from cited reports.
+1. **Aggregate-only ingestion (G1)** — `registry/benchmark-seed.edn` /
+   `registry/benchmark-seed-global.edn` never name an individual
+   municipality or city. Only national/prefecture/state-level aggregate
+   statistics from cited reports (this granularity — e.g. Aichi
+   Prefecture, Rhode Island, South Korea, Cambodia — is explicitly within
+   scope; individual-city naming, e.g. Nagoya, is not, and is recorded
+   only as a known-but-uningested source per ADR-2608176500).
 2. **Source-provenance mandatory (G2)** — every number carries agency,
    report title, published date, as-of date, URL.
 3. **Non-adjudicating (G3)** — no claim that a municipality is negligent,
@@ -88,9 +94,10 @@ reasoning.
 
 | Path | Status |
 |---|---|
-| `registry/benchmark-seed.edn` | Real, cited MLIT/MHLW data (aggregate only) |
+| `registry/benchmark-seed.edn` | Real, cited MLIT/MHLW data (Japan, aggregate only) |
+| `registry/benchmark-seed-global.edn` | Real, cited World Bank/ASCE/IBNET data (international, country/state only) |
 | `src/fushin/infra_dynamics.cljc` | Real, tested SD core (Little's Law + Sterman feedback) |
-| `src/fushin/scenario.cljc` | Real, tested illustrative archetypes |
+| `src/fushin/scenario.cljc` | Real, tested illustrative archetypes (Japan + global building-permit) |
 | `src/fushin/methods/autorun.cljc` | Real, working offline heartbeat → local chained log |
 | `src/fushin/cells.cljc` | Both fns raise — gated on Council ratification |
 
