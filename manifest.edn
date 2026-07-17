@@ -1,0 +1,41 @@
+;; fushin 普請 — actor manifest (kotoba-native, danjo/gov-municipality shape)
+;; Infra-maintenance response benchmark (aggregate-only) + system-dynamics
+;; scenario simulation — ADR-2607176000 (R0 scaffold) · 2026-07-17
+{:actor/id        "fushin"
+ :actor/glyph     "普請"
+ :actor/tier      :tier-b
+ :actor/domain    "fushin.etzhayyim.com"
+ :actor/purpose   "R0 scaffold. Aggregate, source-cited benchmark of Japanese public infrastructure repair response (road/bridge, water pipe; building-permit domain data unknown/follow-up) drawn from published MLIT/MHLW reports, plus a system-dynamics (Little's Law + Sterman stock-management) scenario engine run only against illustrative fast-cohort/slow-cohort archetypes calibrated from the real distribution — never against a real named municipality until Council Lv6+ ratification opens a named-party path (mirrors danjo G10/G11)."
+ :actor/status    :r0
+ :actor/adr       "2607176000"
+ :actor/related   ["2605301600" "2606021600" "2607072630" "2605250800" "2607101558" "2607122100"]
+
+ :actor/gates
+ [{:gate/id "G1" :gate/name "aggregate-only-ingestion"  :gate/rule "No individual municipality named anywhere in registry data."}
+  {:gate/id "G2" :gate/name "source-provenance-mandatory" :gate/rule "Every stat cites agency + report + published date + as-of date + URL."}
+  {:gate/id "G3" :gate/name "non-adjudicating"          :gate/rule "Descriptive distributions + scenario outputs only, no evaluative claims about any real body."}
+  {:gate/id "G4" :gate/name "no-named-party-scenario"   :gate/rule "Scenarios run only against fast-cohort/slow-cohort illustrative archetypes."}
+  {:gate/id "G5" :gate/name "open-method"                :gate/rule "SD model equations + calibration are versioned, public docstrings."}
+  {:gate/id "G6" :gate/name "passive-only-ingestion"     :gate/rule "Cites already-published reports; no live portal scraping."}
+  {:gate/id "G7" :gate/name "murakumo-only-deferred"     :gate/rule "Any future (R3) LLM advisor is Murakumo-only inference."}]
+
+ :actor/non-goals
+ ["N1: real-municipality audit/ranking/named-party publication (deferred to R2, Council+SBT gated)"
+  "N2: civic wayfinding (ooyake's scope)"
+  "N3: live data collection/scraping of individual municipality portals"
+  "N4: live LLM policy advisor (R0 is deterministic SD only)"
+  "N5: building-permit domain (no comparative source found; :data/status :unknown)"]
+
+ :actor/cells
+ [{:cell/id "infra_benchmark_ingest" :cell/kind :fn :cell/runtime :jvm :cell/status :r0-path-reserved}
+  {:cell/id "named_party_scenario"   :cell/kind :fn :cell/runtime :jvm :cell/status :r0-path-reserved}]
+
+ :actor/working-r0
+ ["src/fushin/infra_dynamics.cljc — Little's Law + Sterman stock-management SD core (real, tested)"
+  "src/fushin/scenario.cljc — fast/slow illustrative archetype scenarios (real, tested)"
+  "src/fushin/methods/autorun.cljc — offline local-only heartbeat, content-addressed append-only log, no external I/O"
+  "registry/benchmark-seed.edn — real cited MLIT/MHLW aggregate data"]
+
+ :actor/lex
+ [{:lex/id "infraMaintenanceObservation" :lex/status :r0-path-reserved}
+  {:lex/id "scenarioRun" :lex/status :r0-path-reserved}]}

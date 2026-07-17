@@ -1,0 +1,43 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://etzhayyim.com/.well-known/etzhayyim-context.jsonld"
+  ],
+  "id": "did:web:etzhayyim.com:fushin",
+  "type": ["Context", "Organization"],
+  "name": "fushin (普請 — infra-maintenance response benchmark + system-dynamics scenario actor)",
+  "description": "R0 scaffold. Aggregate, source-cited benchmark of Japanese public infrastructure repair response drawn from published MLIT/MHLW reports, plus a system-dynamics scenario engine run only against illustrative archetypes. Real named-municipality analysis is deferred to Council ratification (ADR-2607176000).",
+  "cells": [
+    {
+      "id": "did:web:etzhayyim.com:fushin/infra-benchmark-ingest",
+      "type": "etzhayyim:PathReservedCell",
+      "name": "infra_benchmark_ingest",
+      "status": "r0-path-reserved"
+    },
+    {
+      "id": "did:web:etzhayyim.com:fushin/named-party-scenario",
+      "type": "etzhayyim:PathReservedCell",
+      "name": "named_party_scenario",
+      "status": "r0-path-reserved"
+    }
+  ],
+  "lexicons": [
+    "com.etzhayyim.fushin.infraMaintenanceObservation",
+    "com.etzhayyim.fushin.scenarioRun"
+  ],
+  "constitutionalGates": [
+    {"gate": "G1", "requirement": "Aggregate-only ingestion — no individual municipality named"},
+    {"gate": "G2", "requirement": "Source-provenance mandatory on every statistic"},
+    {"gate": "G3", "requirement": "Non-adjudicating — descriptive distributions and scenarios only"},
+    {"gate": "G4", "requirement": "No named-party scenario until Council+SBT ratification"},
+    {"gate": "G5", "requirement": "Open method — SD equations and calibration are public"},
+    {"gate": "G6", "requirement": "Passive-only ingestion of already-published reports"}
+  ],
+  "nonGoals": [
+    "N1: real-municipality audit/ranking/named-party publication",
+    "N2: civic wayfinding",
+    "N3: live scraping of individual municipality portals",
+    "N4: live LLM policy advisor",
+    "N5: building-permit domain (data unknown, follow-up)"
+  ]
+}

@@ -1,0 +1,68 @@
+(ns fushin.methods.autorun
+  "Offline, local-only heartbeat (ADR-2607176000 R0; same shape as danjo's
+  methods/autorun.py, ported to .cljc per this workspace's runtime priority
+  — kotoba wasm > clojurewasm > cljs > nbb > (deprecated: jvm/bb) — a
+  standalone JVM entrypoint here is the same tier as danjo's own python
+  entrypoint, both pending migration once a higher-tier runtime carries
+  file-hash + local-log I/O for actor heartbeats workspace-wide).
+
+  Each cycle: run the two illustrative archetypes (fushin.scenario) over a
+  fixed horizon, then persist a content-addressed record (SHA-256 of the
+  record body, chained to the previous record's hash) to a LOCAL,
+  append-only, gitignored log (`.fushin/log.edn`). NO external I/O, NO
+  publication, NO named-party claim (G3/G4) — this never leaves the local
+  filesystem. Deterministic given the same archetypes + horizon; re-running
+  appends a new chained entry rather than mutating prior ones."
+  (:require [fushin.scenario :as sc]
+            [fushin.infra-dynamics :as sd]
+            [clojure.java.io :as io])
+  (:import [java.security MessageDigest]))
+
+(def log-path ".fushin/log.edn")
+
+(defn- sha256-hex [^String s]
+  (let [digest (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))]
+    (apply str (map #(format "%02x" %) digest))))
+
+(defn- last-hash []
+  (let [f (io/file log-path)]
+    (if (.exists f)
+      (with-open [rdr (io/reader f)]
+        (if-let [last-line (last (line-seq rdr))]
+          (:this-hash (read-string last-line))
+          "genesis"))
+      "genesis")))
+
+(defn run-cycle
+  "Run both archetypes over `horizon-days`, return the record to persist
+  (does not write it — see `persist!`)."
+  [horizon-days]
+  (let [fast-traj (sc/run-open-loop sc/fast-archetype horizon-days)
+        slow-traj (sc/run-open-loop sc/slow-archetype horizon-days)
+        prev (last-hash)
+        body {:horizon-days horizon-days
+              :fast-cohort {:label (:label sc/fast-archetype)
+                            :final-backlog (:backlog (last fast-traj))
+                            :final-resolved-share (sd/resolved-share (last fast-traj))}
+              :slow-cohort {:label (:label sc/slow-archetype)
+                            :final-backlog (:backlog (last slow-traj))
+                            :final-resolved-share (sd/resolved-share (last slow-traj))}
+              :non-adjudicating true
+              :named-party false
+              :prev-hash prev}
+        this-hash (sha256-hex (pr-str body))]
+    (assoc body :this-hash this-hash)))
+
+(defn persist!
+  "Append `record` as one EDN line to `log-path` (creates parent dir)."
+  [record]
+  (let [f (io/file log-path)]
+    (io/make-parents f)
+    (spit f (str (pr-str record) "\n") :append true))
+  record)
+
+(defn -main [& args]
+  (let [horizon (if-let [h (first args)] (Long/parseLong h) 365)
+        record (persist! (run-cycle horizon))]
+    (println "fushin autorun: appended" (:this-hash record) "to" log-path)
+    (println (pr-str record))))

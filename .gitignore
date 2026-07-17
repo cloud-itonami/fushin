@@ -1,0 +1,4 @@
+.fushin/
+.cpcache/
+target/
+*.class

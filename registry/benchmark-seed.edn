@@ -1,0 +1,79 @@
+;; fushin 普請 — benchmark-seed.edn
+;;
+;; SOURCE (G2/G6, no fabrication): every number below is transcribed from a
+;; named public report, with agency, publication date, data-as-of date, and
+;; URL. Aggregate / national or prefecture level ONLY (G1) — no individual
+;; municipality is named anywhere in this file. Where no comparative primary
+;; source could be found (building-permit domain), the domain is marked
+;; :data/status :unknown rather than filled with invented numbers.
+
+{:road-bridge-repair
+ {:source {:agency "国土交通省道路局"
+           :report "道路メンテナンス年報（令和5年度版）"
+           :published "2024-08"
+           :as-of "2024-03-31（2023年度末）"
+           :url "https://www.mlit.go.jp/road/sisaku/yobohozen/pdf/r05/r05_08maint.pdf"
+           :retrieved "2026-07-17"}
+
+  ;; §4(1): 1巡目点検(2014-2018)で判定区分III・IVの橋梁を管理する地方公共団体
+  ;; 1,712団体における「修繕等措置着手率」の分布。
+  :commencement-rate-distribution
+  {:bridge {:total-bodies 1712
+            :rate-100pct {:bodies 894 :share 0.52}
+            :rate-50-99pct {:bodies 659 :share 0.39}
+            :rate-under-50pct {:bodies 159 :share 0.09}}
+   :tunnel {:total-bodies 403
+            :rate-100pct {:bodies 318 :share 0.79}
+            :rate-50-99pct {:bodies 45 :share 0.11}
+            :rate-under-50pct {:bodies 40 :share 0.10}}
+   :road-appurtenance {:total-bodies 346
+                       :rate-100pct {:bodies 270 :share 0.78}
+                       :rate-50-99pct {:bodies 41 :share 0.12}
+                       :rate-under-50pct {:bodies 35 :share 0.10}}}
+
+  ;; §4(2): 2023年度末時点、判定区分III・IVの施設の「措置完了率」分布
+  ;; （施設が存在しない、または措置完了した団体を含む）。
+  :completion-rate-distribution
+  {:bridge {:total-bodies 1781
+            :no-issue-or-complete-share 0.12 ;; 8%(149団体、施設なし)+4%(76団体、完了率100%)
+            :zero-progress {:bodies 436 :share 0.24}}
+   :tunnel {:total-bodies 662
+            :no-issue-or-complete-share 0.55
+            :zero-progress {:bodies 223 :share 0.34}}
+   :road-appurtenance {:total-bodies 732
+                       :no-issue-or-complete-share 0.56
+                       :zero-progress {:bodies 196 :share 0.27}}}
+
+  ;; §3(7): 判定区分IV（緊急措置段階）施設の措置状況、2023年度末時点
+  ;; （撤去・廃止 済含む の割合）。
+  :emergency-tier-disposition-2023
+  {:bridge {:facilities 1229 :disposed-or-removed-share 0.40}
+   :tunnel {:facilities 78 :disposed-or-removed-share 0.42}
+   :road-appurtenance {:facilities 56 :disposed-or-removed-share 0.34}}}
+
+ :water-pipe-renewal
+ {:source {:agency "厚生労働省（現・国土交通省水道整備・管理行政）／EY Japan・日本水道セキュリティ戦略機構／財務省政策研究所"
+           :report "水道管路経年化率・更新率・耐震適合率（FY2022集計 + 2024/2025分析）"
+           :published "2024-2025"
+           :as-of "2022年度"
+           :url "https://isvd.or.jp/en/columns/water-infrastructure-aging-crisis"
+           :retrieved "2026-07-17"}
+
+  ;; 法定耐用年数(40年)を超過した管路延長の割合。全国平均のみ（G1）。
+  :aging-rate-national {:fy2022 0.236 :fy2006 0.06}
+
+  ;; 年間更新された管路延長 / 総延長。全国平均のみ。
+  :renewal-rate-national {:fy2022 0.0064 :fy2006 0.012}
+
+  ;; 基幹管路耐震適合率。都道府県レベルの最高・最低・全国平均のみ
+  ;; （個別市区町村は名指ししない）。
+  :seismic-resistance-rate
+  {:national-average 0.423
+   :prefecture-range {:highest {:share 0.736 :note "都道府県レベル最高値（記事要約に基づく、県名は一次資料側の記載）"}
+                      :lowest {:share 0.248 :note "都道府県レベル最低値（同上）"}}}
+
+  :note "99%の水道事業体が更新財源不足（財務省政策研究所2025分析、1,243事業体対象のEY Japan分析2024より）。市区町村単位の内訳は本ファイルにはない — 一次資料の都道府県別詳細表を未取り込み（follow-up）。"}
+
+ :building-permit
+ {:data/status :unknown
+  :note "建築確認処理日数の自治体間比較データは調査時点(2026-07-17)で発見できなかった。捏造せず follow-up として残す。ICBA(日本建築行政会議)等の統計を今後調査する。"}}

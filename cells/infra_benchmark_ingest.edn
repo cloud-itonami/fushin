@@ -1,0 +1,8 @@
+;; fushin 普請 — infra_benchmark_ingest cell (R0 path-reserved)
+;; ADR-2607176000 :adr/phases :r1
+{:cell/id "infra_benchmark_ingest"
+ :cell/status :r0-path-reserved
+ :cell/entry "src/fushin/cells.cljc"
+ :cell/handler "fushin.cells/infra-benchmark-ingest"
+ :cell/doc "R1+: ingest additional aggregate government infra-maintenance reports beyond registry/benchmark-seed.edn. Aggregate-only (G1), source-provenance mandatory (G2), passive-only ingestion of already-published reports (G6, mirrors danjo G3). Gated on Council Lv6+ ratification of ADR-2607176000 R1."
+ :cell/gates ["G1" "G2" "G6"]}
