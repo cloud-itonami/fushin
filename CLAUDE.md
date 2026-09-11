@@ -105,8 +105,8 @@ reasoning.
 
 ```bash
 cd orgs/etzhayyim/com-etzhayyim-fushin
-clojure -M:test              # 10 tests / 16 assertions, all green
-clojure -M:autorun [days]    # offline heartbeat; appends to .fushin/log.edn (gitignored, local only)
+kbb -M:test              # 10 tests / 16 assertions, all green
+kbb -M:autorun [days]    # offline heartbeat; appends to .fushin/log.edn (gitignored, local only)
 ```
 
 ## Non-Goals (N1–N5)
