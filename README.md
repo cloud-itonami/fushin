@@ -88,8 +88,8 @@ boundary with `danjo` / `ooyake` / `yosoku`.
 
 ```bash
 cd orgs/etzhayyim/com-etzhayyim-fushin
-clojure -M:test            # 13 tests, 23 assertions, green
-clojure -M:autorun 365     # run one offline heartbeat cycle
+kbb -M:test            # 13 tests, 23 assertions, green
+kbb -M:autorun 365     # run one offline heartbeat cycle
 ```
 
 ## What's gated (R0 path-reserved, NOT active)
