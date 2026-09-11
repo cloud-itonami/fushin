@@ -55,7 +55,7 @@ boundary with `danjo` / `ooyake` / `yosoku`.
     (only listed as a known source) since comparing it against Aichi's
     number would be an individual-municipality comparison, which G1 reserves
     for a Council-ratified R1+ path.
-- **`src/fushin/infra_dynamics.cljc`** — a Little's-Law + Sterman
+- **`src/fushin/infra_dynamics.cljk`** — a Little's-Law + Sterman
   stock-management system-dynamics core (backlog → completion-rate →
   resolved), the same textbook pattern as `cloud-itonami`'s factory model
   (ADR-2607101558/2607122100), freshly implemented for this domain.
@@ -73,7 +73,7 @@ boundary with `danjo` / `ooyake` / `yosoku`.
     13.1% of major roadways in poor condition, $2.2T/$3.5T investment gap
     (2024-2033); worst state Rhode Island (36.2% poor-condition), 9 states
     with a worsening trend.
-- **`src/fushin/scenario.cljc`** — illustrative archetypes whose
+- **`src/fushin/scenario.cljk`** — illustrative archetypes whose
   `:mean-repair-days` is real, cited data (not invented) where available:
   `fast-cohort`/`slow-cohort` (directionally calibrated from the Japan
   bridge-repair distribution) and `global-best-practice`/`global-average`/
@@ -82,7 +82,7 @@ boundary with `danjo` / `ooyake` / `yosoku`.
   countries being ranked against each other by name in a claim — they are
   scenario parameter sets, with the day-count itself being the one real,
   cited number.
-- **`src/fushin/methods/autorun.cljc`** — an offline heartbeat that runs
+- **`src/fushin/methods/autorun.cljk`** — an offline heartbeat that runs
   both Japan-domestic archetypes and appends a content-addressed, hash-chained
   record to a local, gitignored log. No external I/O, no publication.
 

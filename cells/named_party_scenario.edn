@@ -2,7 +2,7 @@
 ;; ADR-2607176000 :adr/phases :r2
 {:cell/id "named_party_scenario"
  :cell/status :r0-path-reserved
- :cell/entry "src/fushin/cells.cljc"
+ :cell/entry "src/fushin/cells.cljk"
  :cell/handler "fushin.cells/named-party-scenario"
  :cell/doc "R2+: run fushin.scenario against a REAL named municipality (not the fast-cohort/slow-cohort illustrative archetypes). Non-adjudicating (G3), no-named-party until this gate opens (G4). Gated on Council Lv6+ ratification + SBT vote (mirrors danjo G10/G11 oversightReport gating)."
  :cell/gates ["G3" "G4"]}

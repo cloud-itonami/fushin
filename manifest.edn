@@ -31,9 +31,9 @@
   {:cell/id "named_party_scenario"   :cell/kind :fn :cell/runtime :jvm :cell/status :r0-path-reserved}]
 
  :actor/working-r0
- ["src/fushin/infra_dynamics.cljc — Little's Law + Sterman stock-management SD core (real, tested)"
-  "src/fushin/scenario.cljc — fast/slow illustrative archetype scenarios (real, tested)"
-  "src/fushin/methods/autorun.cljc — offline local-only heartbeat, content-addressed append-only log, no external I/O"
+ ["src/fushin/infra_dynamics.cljk — Little's Law + Sterman stock-management SD core (real, tested)"
+  "src/fushin/scenario.cljk — fast/slow illustrative archetype scenarios (real, tested)"
+  "src/fushin/methods/autorun.cljk — offline local-only heartbeat, content-addressed append-only log, no external I/O"
   "registry/benchmark-seed.edn — real cited MLIT/MHLW aggregate data"]
 
  :actor/lex
