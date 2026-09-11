@@ -60,7 +60,7 @@ reasoning.
    scenario against a real named body is `fushin.cells/named-party-scenario`,
    which raises until R2 Council+SBT ratification (mirrors danjo G10/G11).
 5. **Open method (G5)** — the SD equations in
-   `src/fushin/infra_dynamics.cljc` are public, versioned, docstring-cited
+   `src/fushin/infra_dynamics.cljk` are public, versioned, docstring-cited
    prior art (cloud-itonami ADR-2607101558/2607122100), not a closed model.
 6. **Passive-only ingestion (G6)** — `registry/benchmark-seed.edn` cites
    already-published PDF/web reports only. No live portal scraping.
@@ -96,10 +96,10 @@ reasoning.
 |---|---|
 | `registry/benchmark-seed.edn` | Real, cited MLIT/MHLW data (Japan, aggregate only) |
 | `registry/benchmark-seed-global.edn` | Real, cited World Bank/ASCE/IBNET data (international, country/state only) |
-| `src/fushin/infra_dynamics.cljc` | Real, tested SD core (Little's Law + Sterman feedback) |
-| `src/fushin/scenario.cljc` | Real, tested illustrative archetypes (Japan + global building-permit) |
-| `src/fushin/methods/autorun.cljc` | Real, working offline heartbeat → local chained log |
-| `src/fushin/cells.cljc` | Both fns raise — gated on Council ratification |
+| `src/fushin/infra_dynamics.cljk` | Real, tested SD core (Little's Law + Sterman feedback) |
+| `src/fushin/scenario.cljk` | Real, tested illustrative archetypes (Japan + global building-permit) |
+| `src/fushin/methods/autorun.cljk` | Real, working offline heartbeat → local chained log |
+| `src/fushin/cells.cljk` | Both fns raise — gated on Council ratification |
 
 ## Build & Test
 
@@ -120,5 +120,5 @@ domain data is `:unknown`, not fabricated (N5).
 
 - `/90-docs/adr/2607176000-fushin-infra-repair-benchmark-system-dynamics-actor-r0.edn` — ADR (EDN tx-data, per ADR-2607171600 docs-EDN-only rule)
 - `/registry/benchmark-seed.edn` — cited seed data
-- `/src/fushin/{infra_dynamics,scenario,cells}.cljc`, `/src/fushin/methods/autorun.cljc`
+- `/src/fushin/{infra_dynamics,scenario,cells}.cljc`, `/src/fushin/methods/autorun.cljk`
 - `/cells/*.edn` — declarative cell descriptors (R0 path-reserved)
