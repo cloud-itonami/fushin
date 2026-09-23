@@ -1,5 +1,5 @@
 (ns fushin.infra-dynamics-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [fushin.infra-dynamics :as sd]))
 
 (deftest open-loop-converges-to-analytic-equilibrium
