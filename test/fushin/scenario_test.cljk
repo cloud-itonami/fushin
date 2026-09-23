@@ -1,5 +1,5 @@
 (ns fushin.scenario-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [fushin.scenario :as sc]))
 
 (deftest fast-archetype-reaches-lower-steady-backlog-than-slow
