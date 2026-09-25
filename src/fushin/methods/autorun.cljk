@@ -15,7 +15,7 @@
   appends a new chained entry rather than mutating prior ones."
   (:require [kotoba.bytes.sha256 :as sha256] [fushin.scenario :as sc]
             [fushin.infra-dynamics :as sd]
-            [clojure.java.io :as io]))
+            [kotoba.io :as io]))
 
 (def log-path ".fushin/log.edn")
 
@@ -24,7 +24,7 @@
 
 (defn- last-hash []
   (let [f (io/file log-path)]
-    (if (.exists f)
+    (if (io/exists? f)
       (with-open [rdr (io/reader f)]
         (if-let [last-line (last (line-seq rdr))]
           (:this-hash (read-string last-line))
