@@ -25,7 +25,7 @@ would be a named-party claim, and this workspace already gates named-party
 publication about government bodies behind Council Lv6+ ratification + SBT
 vote (the same discipline the sibling actor `danjo` applies to its own
 oversight reports). Country- and state/prefecture-level citation IS within
-scope (see `CLAUDE.md` G1). See `CLAUDE.md` for the full constitutional
+scope (see `AGENTS.md` G1). See `AGENTS.md` for the full constitutional
 boundary with `danjo` / `ooyake` / `yosoku`.
 
 ## What's here (real, working, tested)
@@ -113,11 +113,11 @@ municipality's performance.
 ## Status
 
 **R0.** No cells activated. Named-party analysis requires Council Lv6+
-ratification (see `manifest.edn`, `CLAUDE.md`).
+ratification (see `manifest.edn`, `AGENTS.md`).
 
 ## Related Files
 
-- `/CLAUDE.md` — full constitutional discipline + sibling-actor boundary
+- `/AGENTS.md` — full constitutional discipline + sibling-actor boundary
 - `/manifest.edn` / `/manifest.jsonld` — actor manifest + DID manifest
 - `/90-docs/adr/2607176000-fushin-infra-repair-benchmark-system-dynamics-actor-r0.edn` (superproject)
 - `/90-docs/adr/2608176500-fushin-global-priority-scope-broadening.edn` (superproject)

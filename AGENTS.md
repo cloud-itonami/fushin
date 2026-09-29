@@ -1,4 +1,4 @@
-# com-etzhayyim-fushin — CLAUDE.md
+# com-etzhayyim-fushin — AGENTS.md
 
 ## Identity
 
